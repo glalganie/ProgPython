@@ -1,0 +1,21 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: prog-python
+  namespace: default
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: prog-python
+  template:
+    metadata:
+      labels:
+        app: prog-python
+  spec:
+      containers:
+      - name: prog-python
+        image: prog-python:v1
+        ports:
+        - containerPort: 5000
+        

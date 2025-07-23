@@ -1,12 +1,12 @@
-k8sapp Deployment Guide
+ProgPython Deployment Guide
 This guide explains how to build the Docker image, deploy the application to Kubernetes, expose it via a Service, and access it locally using port forwarding.
 
 1. Build the Docker Image
 First, build the Docker image for your application:
 
 # Build the Docker image from the Dockerfile in the current directory
-# The image will be tagged as 'k8sapp:v1'
-docker build -t k8sapp:v1 .
+# The image will be tagged as 'ProgPython:v1'
+docker build -t ProgPython:v1 .
 2. Kubernetes Deployment
 Dry Run (Check Manifest)
 Validate your deployment manifest before applying:
@@ -34,7 +34,7 @@ To access your application locally (assuming the container exposes port 5000):
 
 # Forward port 5000 from the k8sapp deployment to your local machine
 # This lets you access the app at localhost:5000
-kubectl port-forward deployment/k8sapp 5000:5000
+kubectl port-forward deployment/ProgPython 5000:5000
 Now you can access the app at http://localhost:5000/api/hello.
 
 Replace /api/hello with your actual endpoint if different.

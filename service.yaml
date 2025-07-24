@@ -1,12 +1,12 @@
 apiVersion: v1
 kind: Service
 metadata:
-  name: prog-python-service
-  namespace: default
+  name: ProgPython-service
+ 
 spec:
   selector:
-    app: prog-python
-  type: ClusterIP
+    app: ProgPythondeployment
+  
   ports:
   - port: 5000
     targetPort: 5000

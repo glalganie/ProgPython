@@ -1,35 +1,79 @@
-prog-python Deployment Guide
-This guide explains how to build the Docker image, deploy the application to Kubernetes, expose it via a Service, and access it locally using port forwarding.
+# k8sappswd
 
-1. Build the Docker Image
-First, build the Docker image for your application:
+A simple Flask application ready for Docker and Kubernetes deployment.
 
-docker build -t prog-python:v1 .
-2. Kubernetes Deployment
-Dry Run (Check Manifest)
-Validate your deployment manifest before applying:
+## Features
 
-kubectl apply -f deployment.yaml --dry-run=client
-Apply Deployment
-Create the deployment in your cluster:
+- Flask API with CORS enabled
+- Dockerized for easy containerization
+- Ready for deployment on Kubernetes
 
-kubectl apply -f deployment.yaml
-3. Create a Service
-Assuming you have a service.yaml manifest, validate and apply it:
+## Getting Started
 
-Dry Run
-kubectl apply -f service.yaml --dry-run=client
-Apply Service
+### Requirements
+
+- Python 3.11+
+- Docker (optional, for containerization)
+
+### Local Development
+
+```bash
+pip install -r requirements.txt
+python app.py
+```
+
+### Docker
+
+Build and run the container:
+
+```bash
+docker build -t k8sappswd .
+docker run -p 5000:5000 k8sappswd
+```
+
+### Kubernetes
+
+You can deploy this container to Kubernetes using your preferred method.
+
+---
+
+## Kubernetes: Check and Expose the App on Localhost
+
+### Dry-run and validate your manifests
+
+You can validate your YAML files before applying them using `--dry-run=client` and `kubectl apply --validate=true`:
+
+```bash
+kubectl apply -f pod.yaml --dry-run=client --validate=true
+kubectl apply -f deployment.yaml --dry-run=client --validate=true   # if you have a deployment
+kubectl apply -f service.yaml --dry-run=client --validate=true
+```
+
+### Apply your pod, deployment, and service YAML files
+
+```bash
+kubectl apply -f pod.yaml
+kubectl apply -f deployment.yaml   # if you have a deployment
 kubectl apply -f service.yaml
-4. Port Forwarding
-To access your application locally (assuming the container exposes port 5000):
+```
 
-kubectl port-forward deployment/prog-python 5000:5000
-Now you can access the app at http://localhost:5000/api/hello.
+Check the status of pods and services:
 
-Summary of Steps
-Build the Docker image: Prepares your app for deployment.
-Dry run manifests: Validates your YAML files before making changes.
-Apply deployment and service: Creates resources in Kubernetes.
-Port forwarding: Lets you access the app from your local machine.
-Make sure your Kubernetes cluster is running and kubectl is configured to use the correct context.
+```bash
+kubectl get pods
+kubectl get services
+```
+
+Expose the service on your localhost (for example, if your service is named `k8sappswd-service`):
+
+```bash
+kubectl port-forward service/k8sappswd-service 5000:5000
+```
+
+Now you can access the app at [http://localhost:5000](http://localhost:5000).
+
+---
+
+## License
+
+MIT License
